@@ -16,6 +16,8 @@ public interface TelevisoreService {
 	public Televisore findById(Long idInput) throws Exception;
 
 	public int aggiorna(Televisore input) throws Exception;
+	
+	public List<Televisore> cercaComeEsempio(Televisore input) throws Exception;
 
 	public int inserisciNuovo(Televisore input) throws Exception;
 

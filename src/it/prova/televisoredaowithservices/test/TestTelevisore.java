@@ -26,10 +26,13 @@ public class TestTelevisore {
 		//		testRimuovi(televisoreService);
 		//		System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
 				
-				testQualeEIlTelevisorePiuGrande(televisoreService);
-				System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
-
+		//		testQualeEIlTelevisorePiuGrande(televisoreService);
+		//		System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
+				
+		//		testQuantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate(televisoreService);
 		
+				testCercaComeExample(televisoreService);
+				
 				
 			}
 			catch (Exception e) {
@@ -99,6 +102,38 @@ public class TestTelevisore {
 			
 		}
 			
+		
+		private static void testCercaComeExample (TelevisoreService televisoreService) throws Exception {
+			System.out.println("......testCercaComeExample inizio.......");
+			List<Televisore> elencoTelevisori= televisoreService.listAll();
+			if (elencoTelevisori.size()<1) {
+				throw new RuntimeException("errore: non sono presenti compagnie sul db");
+			}
+			Televisore televisoreExample= new Televisore("Samsung", "Hidense", 0, null);
+			List<Televisore> elencoTelevisoriComeExample= televisoreService.cercaComeEsempio(televisoreExample);
+			if (elencoTelevisoriComeExample.size()<1) {
+				throw new RuntimeException("errore: non sono presenti voci nel db.");
+			}
+			System.out.println("gli elementi presenti sono "+elencoTelevisoriComeExample.size());
+			System.out.println(elencoTelevisoriComeExample);
+			System.out.println("......testCercaComeExample fine.......");
+		
+		}
+
+		
+		
+		private static void testQuantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate(TelevisoreService televisoreService) throws Exception{
+			System.out.println(".........testQuantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate inizio..............");
+			List<Televisore> listaTelevisori = televisoreService.listAll();
+			if (listaTelevisori.isEmpty() || listaTelevisori.get(0) == null)
+				throw new Exception("errore: non ci sono voci");
+			LocalDate dataInizio= LocalDate.parse("2022-01-01");
+			LocalDate dataFine= LocalDate.parse("2023-12-30");
+			int quantiTelevisoriTraData= televisoreService.quantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate(dataInizio, dataFine);
+			System.out.println(quantiTelevisoriTraData);
+			System.out.println(".........testQuantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate fine..............");
+
+		}
 		
 }
 
