@@ -243,8 +243,31 @@ public class TelevisoreDAOImpl extends AbstractMySQLDAO implements TelevisoreDAO
 		}
 
 		public List MarcaOfTelevisionsProducedInTheLastSixMonths() throws Exception {
-			// TODO Auto-generated method stub
-			return null;
+			
+			if (isNotActive())
+				throw new Exception("Connessione non attiva. Impossibile effettuare operazioni DAO.");
+			
+			List<String> result = new ArrayList<>();
+			
+			try (PreparedStatement ps = connection
+					.prepareStatement("select distinct (marca) from televisore where dataproduzione > ?;")) {
+				
+				ps.setDate(1, java.sql.Date.valueOf(LocalDate.now().minusMonths(6)));
+				
+				try (ResultSet rs = ps.executeQuery()) {
+					while (rs.next()) {
+						String marcaTemp ="";
+						marcaTemp = rs.getString("marca");
+						result.add(marcaTemp);
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw e;
+				}
+
+			}
+			return result;
 		}
 		
 

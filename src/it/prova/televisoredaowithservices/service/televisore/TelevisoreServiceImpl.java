@@ -8,7 +8,6 @@ import java.util.List;
 import it.prova.televisoredaowithservices.connection.MyConnection;
 import it.prova.televisoredaowithservices.dao.Constants;
 import it.prova.televisoredaowithservices.dao.televisore.TelevisoreDAO;
-import it.prova.televisoredaowithservices.dao.televisore.TelevisoreDAOImpl;
 import it.prova.televisoredaowithservices.model.Televisore;
 
 public class TelevisoreServiceImpl implements TelevisoreService {
@@ -166,8 +165,21 @@ public class TelevisoreServiceImpl implements TelevisoreService {
 	}
 
 	public List marcaTelevisoriProdottiNegliUltimiSeiMesi() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<String> result = new ArrayList<>();
+
+		try (Connection connection = MyConnection.getConnection(Constants.DRIVER_NAME, Constants.CONNECTION_URL)) {
+
+			// inietto la connection nel dao
+			televisoreDao.setConnection(connection);
+
+			// eseguo quello che realmente devo fare
+			result = televisoreDao.MarcaOfTelevisionsProducedInTheLastSixMonths();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

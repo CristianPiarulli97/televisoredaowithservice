@@ -1,6 +1,7 @@
 package it.prova.televisoredaowithservices.test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import it.prova.televisoredaowithservices.model.Televisore;
@@ -31,8 +32,11 @@ public class TestTelevisore {
 				
 		//		testQuantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate(televisoreService);
 		
-				testCercaComeExample(televisoreService);
+		//		testCercaComeExample(televisoreService);
 				
+		//		testFindAllMarcheProdottiUltimiSeiMesi(televisoreService);
+				
+				testMarcheDegliUltimiSeiMesi(televisoreService);
 				
 			}
 			catch (Exception e) {
@@ -133,6 +137,17 @@ public class TestTelevisore {
 			System.out.println(quantiTelevisoriTraData);
 			System.out.println(".........testQuantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate fine..............");
 
+		}
+		
+		private static void testMarcheDegliUltimiSeiMesi(TelevisoreService televisoreService) throws Exception {
+			System.out.println(".......testMarcheDegliUltimiSeiMesi inizio.............");
+			
+			List<String> result = new ArrayList<>();
+			
+			result=televisoreService.marcaTelevisoriProdottiNegliUltimiSeiMesi();
+			System.out.println(result);
+
+			System.out.println(".......testMarcheDegliUltimiSeiMesi fine.............");
 		}
 		
 }
